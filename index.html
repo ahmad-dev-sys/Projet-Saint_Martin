@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Association Saint Martin – Ensemble dans la rue, pour redonner espoir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --B:#6B0F1A; --BD:#4A0A11; --BM:#8B1A2A; --BL:#A52535;
+  --BBG:#F9F0F1; --W:#FFFFFF; --GL:#F5F5F5; --GR:#6B6B6B;
+  --GBD:#E0D8D8; --N:#1A1A1A;
+  --S:0 4px 32px rgba(107,15,26,.10);
+  --SL:0 12px 60px rgba(107,15,26,.18);
+  --R:4px; --T:.32s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--W);color:var(--N);overflow-x:hidden;line-height:1.7;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--B);border-radius:2px;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:0 48px;height:78px;display:flex;align-items:center;justify-content:space-between;transition:background var(--T),box-shadow var(--T);}
+nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 2px 24px rgba(107,15,26,.10);backdrop-filter:blur(14px);}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;}
+
+/* CERCLE LOGO */
+.logo-circle{width:54px;height:54px;border-radius:50%;border:2.5px solid var(--B);overflow:hidden;cursor:pointer;position:relative;background:var(--BBG);flex-shrink:0;transition:border-color var(--T),box-shadow var(--T);display:flex;align-items:center;justify-content:center;}
+.logo-circle:hover{border-color:var(--BL);box-shadow:0 0 0 4px rgba(107,15,26,.12);}
+.logo-circle img{width:100%;height:100%;object-fit:cover;display:block;}
+.logo-circle-ph{font-size:1.7rem;pointer-events:none;}
+.logo-circle input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.logo-hint{position:absolute;inset:0;background:rgba(107,15,26,.68);display:flex;align-items:center;justify-content:center;font-size:.58rem;color:#fff;text-align:center;font-weight:600;letter-spacing:.5px;opacity:0;transition:opacity var(--T);pointer-events:none;text-transform:uppercase;padding:4px;}
+.logo-circle:hover .logo-hint{opacity:1;}
+.nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--B);letter-spacing:.3px;line-height:1.2;}
+.nav-logo-text span{display:block;font-size:.68rem;font-weight:400;font-family:'Jost',sans-serif;color:var(--GR);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;}
+.nav-links{display:flex;gap:30px;list-style:none;align-items:center;}
+.nav-links a{font-size:.82rem;font-weight:500;color:var(--N);text-decoration:none;letter-spacing:.5px;text-transform:uppercase;position:relative;padding-bottom:3px;transition:color var(--T);}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--B);transition:width var(--T);}
+.nav-links a:hover::after{width:100%;}
+.nav-links a:hover{color:var(--B);}
+.nav-cta{background:var(--B)!important;color:#fff!important;padding:10px 20px!important;border-radius:2px;transition:background var(--T)!important;}
+.nav-cta:hover{background:var(--BL)!important;}
+.nav-cta::after{display:none!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--B);transition:var(--T);}
+
+/* HERO */
+#hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(140deg,var(--BD) 0%,var(--B) 45%,var(--BM) 100%);}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(to right,rgba(74,10,17,.88) 0%,rgba(74,10,17,.5) 55%,transparent 100%);}
+.hero-diag{position:absolute;right:0;top:0;bottom:0;width:42%;background:rgba(255,255,255,.03);clip-path:polygon(18% 0,100% 0,100% 100%,0 100%);}
+.hero-c{position:relative;z-index:2;padding:0 64px;max-width:720px;}
+.hero-ey{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:24px;font-weight:500;}
+.hero-ey::before,.hero-ey::after{content:'';display:block;width:28px;height:1px;background:rgba(255,255,255,.4);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5.5vw,5.2rem);line-height:1.06;color:#fff;margin-bottom:24px;font-weight:700;}
+.hero-title em{font-style:italic;color:rgba(255,255,255,.88);}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,.72);margin-bottom:48px;max-width:500px;line-height:1.85;}
+.hero-act{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-p{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--B);padding:15px 34px;font-family:'Jost',sans-serif;font-weight:600;font-size:.88rem;letter-spacing:.5px;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all var(--T);border:none;cursor:pointer;}
+.btn-p:hover{background:var(--BBG);transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,255,255,.2);}
+.btn-s{display:inline-flex;align-items:center;gap:10px;background:transparent;color:#fff;padding:14px 34px;font-family:'Jost',sans-serif;font-weight:500;font-size:.88rem;letter-spacing:.5px;text-transform:uppercase;text-decoration:none;border-radius:2px;border:1.5px solid rgba(255,255,255,.45);transition:all var(--T);cursor:pointer;}
+.btn-s:hover{border-color:#fff;background:rgba(255,255,255,.08);}
+.btn-r{display:inline-flex;align-items:center;gap:10px;background:var(--B);color:#fff;padding:14px 30px;font-family:'Jost',sans-serif;font-weight:600;font-size:.88rem;letter-spacing:.5px;text-transform:uppercase;text-decoration:none;border-radius:2px;border:none;cursor:pointer;transition:all var(--T);}
+.btn-r:hover{background:var(--BL);transform:translateY(-2px);box-shadow:0 8px 24px rgba(107,15,26,.3);}
+.hero-stats{position:absolute;bottom:0;right:0;z-index:2;display:flex;}
+.hero-stat{padding:26px 38px;text-align:center;background:rgba(74,10,17,.75);backdrop-filter:blur(12px);border-top:3px solid rgba(255,255,255,.3);}
+.hero-stat+.hero-stat{border-left:1px solid rgba(255,255,255,.1);}
+.hs-n{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:700;color:#fff;display:block;line-height:1;}
+.hs-l{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.55);margin-top:4px;display:block;}
+
+/* SECTIONS */
+section{padding:96px 60px;}
+.s-ey{display:inline-flex;align-items:center;gap:12px;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--B);margin-bottom:14px;font-weight:600;}
+.s-ey::before{content:'';display:block;width:22px;height:1.5px;background:var(--B);}
+.s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.1;color:var(--BD);margin-bottom:18px;font-weight:700;}
+.s-title em{font-style:italic;color:var(--B);}
+.s-lead{font-size:1rem;color:var(--GR);max-width:580px;line-height:1.85;}
+
+/* ABOUT */
+#about{background:#fff;}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;margin-top:56px;}
+.ai{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;height:500px;}
+.aim{grid-row:1/3;grid-column:1/2;border-radius:var(--R);overflow:hidden;}
+.ais{border-radius:var(--R);overflow:hidden;}
+.aim img,.ais img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
+.aim:hover img,.ais:hover img{transform:scale(1.04);}
+.about-q{background:var(--BBG);border-left:4px solid var(--B);padding:22px 26px;margin:28px 0;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--BD);line-height:1.55;}
+.a-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;}
+.a-stat{padding:18px;background:var(--BBG);border-radius:var(--R);border-bottom:3px solid var(--B);}
+.a-stat-n{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--B);line-height:1;}
+.a-stat-l{font-size:.76rem;color:var(--GR);margin-top:4px;text-transform:uppercase;letter-spacing:.5px;}
+
+/* ACTIONS */
+#actions{background:var(--GL);}
+.ac-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.ac-card{background:#fff;border-radius:var(--R);padding:32px 24px;position:relative;overflow:hidden;transition:transform var(--T),box-shadow var(--T);border-bottom:3px solid transparent;}
+.ac-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--B);transform:scaleX(0);transform-origin:left;transition:transform var(--T);}
+.ac-card:hover{transform:translateY(-5px);box-shadow:var(--SL);border-bottom-color:var(--B);}
+.ac-card:hover::before{transform:scaleX(1);}
+.ac-ic{width:52px;height:52px;background:linear-gradient(135deg,var(--B),var(--BL));border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.4rem;color:#fff;}
+.ac-card h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--BD);margin-bottom:10px;}
+.ac-card p{font-size:.88rem;color:var(--GR);line-height:1.7;}
+
+/* STORIES */
+#stories{background:var(--BD);color:#fff;}
+#stories .s-title{color:#fff;}
+#stories .s-title em{color:rgba(255,255,255,.75);}
+#stories .s-ey{color:rgba(255,255,255,.55);}
+#stories .s-ey::before{background:rgba(255,255,255,.35);}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:52px;}
+.sc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--R);padding:32px;position:relative;transition:background var(--T);}
+.sc:hover{background:rgba(255,255,255,.09);}
+.sc::before{content:'\201C';font-family:'Cormorant Garamond',serif;font-size:5.5rem;color:rgba(255,255,255,.15);position:absolute;top:-8px;left:20px;line-height:1;}
+.sc-n{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:rgba(255,255,255,.95);margin-bottom:6px;}
+.sc-o{font-size:.72rem;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.45);margin-bottom:18px;}
+.sc-t{font-size:.92rem;color:rgba(255,255,255,.75);line-height:1.8;font-style:italic;}
+.ph-strip{margin-top:52px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.ph-item{border-radius:var(--R);overflow:hidden;height:210px;position:relative;}
+.ph-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.ph-item:hover img{transform:scale(1.06);}
+.ph-item::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(74,10,17,.55) 0%,transparent 60%);}
+
+/* PROJECTS */
+#projects{background:#fff;}
+.pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px;}
+.pr-card{border-radius:var(--R);overflow:hidden;position:relative;height:320px;cursor:pointer;}
+.pr-bg{position:absolute;inset:0;transition:transform .5s ease;}
+.pr-card:hover .pr-bg{transform:scale(1.05);}
+.pr-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(74,10,17,.92) 0%,rgba(74,10,17,.35) 55%,transparent 100%);}
+.pr-cnt{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:26px;}
+.pr-num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:rgba(255,255,255,.25);line-height:1;margin-bottom:6px;}
+.pr-cnt h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#fff;margin-bottom:6px;}
+.pr-cnt p{font-size:.82rem;color:rgba(255,255,255,.65);}
+.pr-ic{position:absolute;top:22px;right:22px;z-index:2;width:46px;height:46px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+
+/* DON */
+#don{background:var(--BD);color:#fff;text-align:center;}
+#don .s-title{color:#fff;}
+#don .s-title em{color:rgba(255,255,255,.75);}
+#don .s-ey{color:rgba(255,255,255,.5);justify-content:center;}
+#don .s-ey::before{background:rgba(255,255,255,.3);}
+#don .s-lead{color:rgba(255,255,255,.6);margin:0 auto 52px;}
+.dm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:52px;}
+.dm{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--R);padding:26px 18px;cursor:pointer;transition:all var(--T);position:relative;overflow:hidden;}
+.dm::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.06);opacity:0;transition:opacity var(--T);}
+.dm:hover,.dm.active{border-color:rgba(255,255,255,.4);transform:translateY(-4px);}
+.dm:hover::before,.dm.active::before{opacity:1;}
+.dm.active{box-shadow:0 0 0 2px rgba(255,255,255,.5);}
+.dm-ic{font-size:2.1rem;display:block;margin-bottom:12px;}
+.dm-n{font-weight:600;font-size:.9rem;color:#fff;display:block;margin-bottom:5px;}
+.dm-d{font-size:.74rem;color:rgba(255,255,255,.45);}
+.don-form{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:var(--R);padding:44px;max-width:580px;margin:0 auto;text-align:left;}
+.don-form h3{font-family:'Cormorant Garamond',serif;font-size:1.75rem;color:#fff;margin-bottom:6px;}
+.don-sub{font-size:.85rem;color:rgba(255,255,255,.45);margin-bottom:28px;}
+.amounts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.amt{padding:11px 22px;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.75);border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:500;transition:all var(--T);}
+.amt:hover,.amt.active{border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.12);color:#fff;}
+.fg{margin-bottom:18px;}
+.fg label{display:block;font-size:.74rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.45);margin-bottom:7px;font-weight:500;}
+.fg input{width:100%;padding:13px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:2px;color:#fff;font-family:'Jost',sans-serif;font-size:.92rem;transition:border-color var(--T);}
+.fg input:focus{outline:none;border-color:rgba(255,255,255,.5);}
+.fg input::placeholder{color:rgba(255,255,255,.28);}
+.pay-info{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:2px;padding:16px 18px;margin-bottom:22px;font-size:.85rem;color:rgba(255,255,255,.78);line-height:1.65;}
+.pay-info strong{color:#fff;}
+
+/* JOIN */
+#join{background:var(--GL);}
+.jg{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;margin-top:52px;}
+.j-perks{display:flex;flex-direction:column;gap:14px;margin-top:28px;}
+.j-perk{display:flex;align-items:flex-start;gap:14px;padding:18px;background:#fff;border-radius:var(--R);border-left:3px solid var(--B);}
+.j-perk-ic{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--B),var(--BL));display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.j-perk h4{font-weight:600;color:var(--BD);margin-bottom:3px;font-size:.92rem;}
+.j-perk p{font-size:.83rem;color:var(--GR);}
+.j-form{background:#fff;border-radius:var(--R);padding:36px;box-shadow:var(--S);}
+.j-form h3{font-family:'Cormorant Garamond',serif;font-size:1.75rem;color:var(--BD);margin-bottom:22px;font-weight:700;}
+.fgl{margin-bottom:18px;}
+.fgl label{display:block;font-size:.74rem;text-transform:uppercase;letter-spacing:1px;color:var(--GR);margin-bottom:7px;font-weight:600;}
+.fgl input,.fgl select,.fgl textarea{width:100%;padding:12px 14px;background:var(--GL);border:1.5px solid var(--GBD);border-radius:2px;color:var(--BD);font-family:'Jost',sans-serif;font-size:.9rem;transition:border-color var(--T);}
+.fgl input:focus,.fgl select:focus,.fgl textarea:focus{outline:none;border-color:var(--B);}
+.fgl textarea{resize:vertical;min-height:95px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+/* CONTACT */
+#contact{background:#fff;}
+.cg{display:grid;grid-template-columns:1fr 2fr;gap:72px;margin-top:52px;}
+.ci{display:flex;flex-direction:column;gap:24px;}
+.ci-item{display:flex;align-items:flex-start;gap:14px;}
+.ci-ic{width:42px;height:42px;background:var(--BBG);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0;border:2px solid var(--B);}
+.ci-item h4{font-weight:600;color:var(--BD);margin-bottom:3px;font-size:.88rem;}
+.ci-item p,.ci-item a{font-size:.86rem;color:var(--GR);text-decoration:none;}
+.ci-item a:hover{color:var(--B);}
+.map-ph{background:var(--BBG);border-radius:var(--R);height:280px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;border:2px dashed rgba(107,15,26,.2);margin-top:24px;}
+.c-form{background:var(--GL);border-radius:var(--R);padding:36px;}
+.c-form h3{font-family:'Cormorant Garamond',serif;font-size:1.75rem;color:var(--BD);margin-bottom:22px;font-weight:700;}
+
+/* FOOTER */
+footer{background:var(--BD);color:rgba(255,255,255,.65);padding:56px 60px 28px;}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:52px;margin-bottom:44px;}
+.fl{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.fl-circle{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,255,255,.25);overflow:hidden;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fl-circle img{width:100%;height:100%;object-fit:cover;}
+.fl-text{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:#fff;}
+.fb p{font-size:.85rem;line-height:1.8;max-width:270px;}
+.fc h4{font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.4);margin-bottom:18px;}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.fc ul li a{font-size:.85rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color var(--T);}
+.fc ul li a:hover{color:#fff;}
+.fb-bot{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;}
+.fb-bot p{font-size:.78rem;}
+
+/* MODALS */
+.modal-ov{position:fixed;inset:0;background:rgba(74,10,17,.7);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px);}
+.modal-ov.active{display:flex;}
+.modal{background:#fff;border-radius:var(--R);padding:40px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;position:relative;border-top:4px solid var(--B);}
+.modal-x{position:absolute;top:14px;right:14px;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--GR);}
+.modal h3{font-family:'Cormorant Garamond',serif;font-size:1.75rem;color:var(--BD);margin-bottom:8px;font-weight:700;}
+.modal .si{font-size:3.5rem;display:block;text-align:center;margin-bottom:14px;}
+.modal p{color:var(--GR);margin-bottom:18px;font-size:.92rem;line-height:1.7;}
+
+/* TOAST */
+.toast{position:fixed;bottom:26px;right:26px;background:var(--BD);color:#fff;padding:14px 22px;border-radius:var(--R);z-index:3000;font-size:.88rem;transform:translateY(100px);opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);border-left:4px solid #fff;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success{border-left-color:#4CAF50;}
+.toast.error{border-left-color:#FF6B6B;}
+
+/* FADE */
+.fu{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+.fu.v{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  nav{padding:0 28px;}section{padding:72px 28px;}
+  .ag,.jg,.cg{grid-template-columns:1fr;}
+  .ai{height:300px;}
+  .ac-grid,.pr-grid{grid-template-columns:1fr 1fr;}
+  .dm-grid{grid-template-columns:1fr 1fr;}
+  .sg{grid-template-columns:1fr;}
+  .ft{grid-template-columns:1fr 1fr;}
+  .hero-stats{position:static;margin-top:48px;flex-wrap:wrap;}
+  .hero-c{padding:0 28px;}
+}
+@media(max-width:768px){
+  nav{padding:0 18px;height:66px;}
+  .nav-links{display:none;position:fixed;top:66px;left:0;right:0;background:#fff;flex-direction:column;padding:20px;gap:18px;box-shadow:var(--S);}
+  .nav-links a{color:var(--BD)!important;}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  section{padding:52px 18px;}
+  .hero-c{padding:120px 18px 32px;}
+  .hero-title{font-size:2.4rem;}
+  .ac-grid,.pr-grid,.ph-strip,.frow,.dm-grid{grid-template-columns:1fr;}
+  .ft{grid-template-columns:1fr;}
+  footer{padding:44px 18px 22px;}
+  .fb-bot{flex-direction:column;gap:7px;text-align:center;}
+  .don-form{padding:24px 16px;}
+  .j-form,.c-form{padding:22px 16px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="logo-circle" id="lc" title="Cliquez pour intégrer votre logo">
+      <img id="logo-img" src="" alt="Logo" style="display:none"/>
+      <span class="logo-circle-ph" id="logo-ph"><img src="image\Logo.png" alt=""></span>
+      <span class="logo-hint">Intégrer<br>le logo</span>
+      <input type="file" accept="image/*" onchange="changeLogo(event)"/>
+    </div>
+    <div class="nav-logo-text">
+      Association Saint Martin
+      <span>Ensemble dans la rue</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="nl">
+    <li><a href="#about">Notre mission</a></li>
+    <li><a href="#actions">Nos actions</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#join">Rejoindre</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#don" class="nav-cta">❤️ Faire un don</a></li>
+  </ul>
+  <button class="hamburger" id="hb" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-diag"></div>
+  <div class="hero-c fu">
+    <div class="hero-ey">Paris, France · Fondée en 2021</div>
+    <h1 class="hero-title">Ensemble dans la rue,<br>pour <em>redonner espoir</em></h1>
+    <p class="hero-sub">L'Association Saint Martin accompagne les personnes sans abri vers la réinsertion sociale : démarches administratives, aide alimentaire, soutien moral et bien plus encore.</p>
+    <div class="hero-act">
+      <a href="#don" class="btn-p">❤️ Faire un don</a>
+      <a href="#join" class="btn-s">Devenir bénévole →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat fu d1"><span class="hs-n">100+</span><span class="hs-l">Personnes aidées</span></div>
+    <div class="hero-stat fu d2"><span class="hs-n">70</span><span class="hs-l">Bénévoles actifs</span></div>
+    <div class="hero-stat fu d3"><span class="hs-n">5 ans</span><span class="hs-l">D'engagement</span></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="ag">
+    <div class="ai fu">
+      <div class="aim"><img src="image\PHOTO-2023-12-27-01-02-26.jpg" alt="Maraude" onerror="this.src='https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800'"/></div>
+      <div class="ais"><img src="image\PHOTO-2024-12-31-00-31-09.jpg" alt="Aide" onerror="this.src='https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=400'"/></div>
+      <div class="ais"><img src="image\PHOTO-2026-03-19-14-09-07 2.jpg" alt="Bénévoles" onerror="this.src='https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400'"/></div>
+    </div>
+    <div class="fu d2">
+      <div class="s-ey">Notre identité</div>
+      <h2 class="s-title">Qui sommes-<em>nous</em> ?</h2>
+      <p class="s-lead">Fondée en 2021, l'Association Saint Martin est une organisation 100% financée par des dons privés, animée par 70 bénévoles passionnés qui œuvrent chaque semaine dans les rues de Paris.</p>
+      <div class="about-q">« Saint Martin, en partageant son manteau avec un mendiant, nous rappelle que chaque être humain mérite dignité et compassion. »</div>
+      <p style="color:var(--GR);font-size:.9rem;line-height:1.85;">Notre mission va bien au-delà de la distribution de repas. Nous accompagnons chaque personne dans sa globalité : ses papiers, son logement, son moral, et parfois jusqu'à son retour dans son pays d'origine.</p>
+      <div class="a-stats">
+        <div class="a-stat"><div class="a-stat-n">100%</div><div class="a-stat-l">Financement privé</div></div>
+        <div class="a-stat"><div class="a-stat-n">4</div><div class="a-stat-l">Projets réalisés</div></div>
+        <div class="a-stat"><div class="a-stat-n">7j/7</div><div class="a-stat-l">Disponibilité</div></div>
+        <div class="a-stat"><div class="a-stat-n">Paris</div><div class="a-stat-l">Zone d'action</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="actions">
+  <div class="fu" style="max-width:580px;margin-bottom:52px">
+    <div class="s-ey">Ce que nous faisons</div>
+    <h2 class="s-title">Nos <em>actions</em> concrètes</h2>
+    <p class="s-lead">Chaque semaine, nos bénévoles interviennent sur plusieurs fronts pour apporter une aide globale et durable.</p>
+  </div>
+  <div class="ac-grid">
+    <div class="ac-card fu d1"><div class="ac-ic">📋</div><h3>Démarches administratives</h3><p>Aide à la régularisation (carte d'identité, passeport). Accompagnement complet pour les personnes sans papiers.</p></div>
+    <div class="ac-card fu d2"><div class="ac-ic">🍲</div><h3>Aide hebdomadaire</h3><p>Distribution chaque semaine de nourriture, vêtements adaptés aux saisons et produits d'hygiène de base.</p></div>
+    <div class="ac-card fu d3"><div class="ac-ic">🏠</div><h3>Aide au logement</h3><p>Accompagnement à l'installation lors de l'attribution d'un logement : mobilier, vaisselle, linge, essentiels.</p></div>
+    <div class="ac-card fu d1"><div class="ac-ic">🤝</div><h3>Soutien moral & funéraire</h3><p>Présence humaine auprès des personnes isolées. Prise en charge funéraire, recherche des familles.</p></div>
+    <div class="ac-card fu d2"><div class="ac-ic">✈️</div><h3>Retour au pays</h3><p>Aide au retour dans le pays d'origine : démarches administratives, financement du billet, accompagnement.</p></div>
+    <div class="ac-card fu d3"><div class="ac-ic">🎗️</div><h3>Sensibilisation</h3><p>Événements culturels et concerts solidaires pour sensibiliser le grand public à la situation des sans-abri.</p></div>
+  </div>
+</section>
+
+<section id="stories">
+  <div class="fu">
+    <div class="s-ey">Témoignages</div>
+    <h2 class="s-title">Des vies <em>transformées</em></h2>
+    <p class="s-lead" style="color:rgba(255,255,255,.6)">Derrière chaque statistique, il y a une histoire humaine. Voici deux parcours qui illustrent notre engagement quotidien.</p>
+  </div>
+  <div class="sg">
+    <div class="sc fu d1"><div class="sc-n">Ananth</div><div class="sc-o">🇱🇰 Sri Lanka</div><p class="sc-t">Rencontré lors d'une maraude, Ananth a été accompagné dans toutes ses démarches pour rentrer chez lui au Sri Lanka. Papiers refaits, billet financé, départ organisé. L'association garde toujours contact avec lui aujourd'hui.</p></div>
+    <div class="sc fu d2"><div class="sc-n">Ion</div><div class="sc-o">🇷🇴 Roumanie</div><p class="sc-t">Ion avait été attiré en France avec la promesse d'un emploi à 3 000€/mois. Ses documents lui avaient été volés. L'association lui a refait ses papiers, payé son billet de bus et l'a accompagné jusqu'à son départ pour la Roumanie.</p></div>
+  </div>
+  <div class="ph-strip">
+    <div class="ph-item fu d1"><img src="image\PHOTO-2023-11-24-16-27-55.jpg" alt="Maraude" onerror="this.src='https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=600'"/></div>
+    <div class="ph-item fu d2"><img src="image\PHOTO-2023-12-15-23-25-39.jpg" alt="Distribution" onerror="this.src='https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=600'"/></div>
+    <div class="ph-item fu d3"><img src="image\PHOTO-2024-12-23-23-42-18.jpg" alt="Bénévoles" onerror="this.src='https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600'"/></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="fu" style="max-width:580px">
+    <div class="s-ey">Nos réalisations</div>
+    <h2 class="s-title">Projets <em>accomplis</em></h2>
+    <p class="s-lead">En 5 ans, l'association a mené plusieurs projets qui ont marqué la vie de nombreuses personnes.</p>
+  </div>
+  <div class="pr-grid">
+    <div class="pr-card fu d1"><div class="pr-bg" style="background:linear-gradient(135deg,#6B0F1A,#A52535)"></div><div class="pr-ic">🎬</div><div class="pr-cnt"><div class="pr-num">01</div><h3>Reportage documentaire</h3><p>Documentaire vidéo sur le travail de terrain : maraudes, témoignages et impact réel.</p></div></div>
+    <div class="pr-card fu d2"><div class="pr-bg" style="background:linear-gradient(135deg,#4A0A11,#6B0F1A)"></div><div class="pr-ic">🎵</div><div class="pr-cnt"><div class="pr-num">02</div><h3>Concert solidaire</h3><p>Événement caritatif pour sensibiliser le public et collecter des fonds pour nos actions terrain.</p></div></div>
+    <div class="pr-card fu d3"><div class="pr-bg" style="background:linear-gradient(135deg,#3D0A10,#6B0F1A)"></div><div class="pr-ic">🎁</div><div class="pr-cnt"><div class="pr-num">03</div><h3>Tournée de Noël</h3><p>Distribution de cadeaux et repas chauds aux sans-abri pendant les fêtes de fin d'année.</p></div></div>
+  </div>
+</section>
+
+<section id="don">
+  <div class="s-ey">Soutenir l'association</div>
+  <h2 class="s-title">Faire un <em>don</em></h2>
+  <p class="s-lead">Votre générosité nous permet de continuer notre mission. Choisissez votre moyen de paiement.</p>
+  <div class="dm-grid">
+    <div class="dm active" onclick="selM('wave')" id="m-wave"><span class="dm-ic">📱</span><span class="dm-n">Wave</span><span class="dm-d">Mobile instantané</span></div>
+    <div class="dm" onclick="selM('orange')" id="m-orange"><span class="dm-ic">🟠</span><span class="dm-n">Orange Money</span><span class="dm-d">Mobile Money</span></div>
+    <div class="dm" onclick="selM('card')" id="m-card"><span class="dm-ic">💳</span><span class="dm-n">Carte bancaire</span><span class="dm-d">Visa · Mastercard</span></div>
+    <div class="dm" onclick="selM('western')" id="m-western"><span class="dm-ic">🌍</span><span class="dm-n">Western Union</span><span class="dm-d">International</span></div>
+  </div>
+  <div class="don-form fu">
+    <h3 id="don-title">Don par Wave</h3>
+    <p class="don-sub" id="don-sub">Rapide, sécurisé, direct</p>
+    <div class="amounts">
+      <button class="amt" onclick="selA(5,event)">5 €</button>
+      <button class="amt active" onclick="selA(10,event)">10 €</button>
+      <button class="amt" onclick="selA(20,event)">20 €</button>
+      <button class="amt" onclick="selA(50,event)">50 €</button>
+      <button class="amt" onclick="selA(100,event)">100 €</button>
+      <button class="amt" onclick="selA('custom',event)">Autre</button>
+    </div>
+    <div class="fg" id="ca-grp" style="display:none"><label>Montant (€)</label><input type="number" id="ca" placeholder="Votre montant" min="1"/></div>
+    <div class="fg"><label>Votre prénom</label><input type="text" id="d-name" placeholder="Optionnel"/></div>
+    <div class="fg"><label>Votre email *</label><input type="email" id="d-email" placeholder="pour le reçu de don"/></div>
+    <div class="pay-info" id="pay-info">📱 <strong>Wave :</strong> Envoyez au <strong>+33 6 13 85 16 79</strong> (Marguerite Marie Langlier) réf. <strong>"DON SAINT MARTIN"</strong>.</div>
+    <button class="btn-p" onclick="procDon()" style="width:100%;justify-content:center;font-size:.95rem;padding:16px;">❤️ Confirmer mon don de <span id="don-amt">10 €</span></button>
+  </div>
+</section>
+
+<section id="join">
+  <div class="jg">
+    <div>
+      <div class="s-ey fu">Bénévolat</div>
+      <h2 class="s-title fu">Rejoignez <em>notre équipe</em></h2>
+      <p class="s-lead fu">Rejoindre l'Association Saint Martin, c'est rejoindre une communauté de 70 bénévoles engagés qui donnent de leur temps pour changer des vies.</p>
+      <div class="j-perks">
+        <div class="j-perk fu d1"><div class="j-perk-ic">🌙</div><div><h4>Maraudes nocturnes</h4><p>Participez aux tournées hebdomadaires pour distribuer aide alimentaire et vestimentaire.</p></div></div>
+        <div class="j-perk fu d2"><div class="j-perk-ic">📝</div><div><h4>Accompagnement administratif</h4><p>Aidez les personnes dans leurs démarches (papiers, logement, droits).</p></div></div>
+        <div class="j-perk fu d3"><div class="j-perk-ic">💬</div><div><h4>Soutien moral</h4><p>Offrez simplement votre présence et votre écoute aux personnes isolées.</p></div></div>
+      </div>
+    </div>
+    <div class="j-form fu d2">
+      <h3>Devenir bénévole</h3>
+      <div class="frow"><div class="fgl"><label>Prénom *</label><input type="text" id="v-pr" placeholder="Votre prénom"/></div><div class="fgl"><label>Nom *</label><input type="text" id="v-nm" placeholder="Votre nom"/></div></div>
+      <div class="fgl"><label>Email *</label><input type="email" id="v-em" placeholder="votre@email.com"/></div>
+      <div class="fgl"><label>Téléphone</label><input type="tel" id="v-tel" placeholder="+33 6 00 00 00 00"/></div>
+      <div class="fgl"><label>Mission souhaitée</label><select id="v-type"><option value="">Choisir...</option><option>Maraudes nocturnes</option><option>Aide administrative</option><option>Distribution alimentaire</option><option>Soutien moral</option><option>Organisation d'événements</option><option>Communication / réseaux sociaux</option></select></div>
+      <div class="fgl"><label>Message (optionnel)</label><textarea id="v-msg" placeholder="Parlez-nous de votre motivation..."></textarea></div>
+      <button class="btn-r" style="width:100%;justify-content:center;" onclick="sendBen()">Envoyer ma candidature →</button>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="s-ey fu">Nous joindre</div>
+  <h2 class="s-title fu">Restons en <em>contact</em></h2>
+  <div class="cg">
+    <div class="ci">
+      <div class="ci-item fu"><div class="ci-ic">👤</div><div><h4>Responsable</h4><p>Marguerite Marie Langlier</p></div></div>
+      <div class="ci-item fu d1"><div class="ci-ic">✉️</div><div><h4>Email</h4><a href="mailto:maggie.langlier@gmail.com">maggie.langlier@gmail.com</a></div></div>
+      <div class="ci-item fu d2"><div class="ci-ic">📱</div><div><h4>WhatsApp</h4><a href="https://wa.me/33613851679">+33 6 13 85 16 79</a></div></div>
+      <div class="ci-item fu d3"><div class="ci-ic">📍</div><div><h4>Siège social</h4><p>Paris, France</p></div></div>
+      <div class="map-ph fu d4"><span style="font-size:2.2rem">📍</span><p style="color:var(--GR);font-size:.84rem;text-align:center">Paris, France<br>Maraudes chaque semaine</p></div>
+    </div>
+    <div class="c-form fu d1">
+      <h3>Envoyez-nous un message</h3>
+      <div class="frow"><div class="fgl"><label>Prénom *</label><input type="text" id="ct-pr" placeholder="Votre prénom"/></div><div class="fgl"><label>Nom *</label><input type="text" id="ct-nm" placeholder="Votre nom"/></div></div>
+      <div class="fgl"><label>Email *</label><input type="email" id="ct-em" placeholder="votre@email.com"/></div>
+      <div class="fgl"><label>Sujet</label><select id="ct-sj"><option>Question générale</option><option>Don / Financement</option><option>Bénévolat</option><option>Partenariat</option><option>Presse / Médias</option></select></div>
+      <div class="fgl"><label>Message *</label><textarea id="ct-msg" rows="5" placeholder="Votre message..."></textarea></div>
+      <button class="btn-r" onclick="sendCt()">Envoyer le message →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft">
+    <div class="fb">
+      <div class="fl">
+        <div class="fl-circle"><img id="ft-logo" src="" alt="" style="display:none"/><span id="ft-ph" style="font-size:1.4rem"><img src="image\Logo.png" alt=""></span></div>
+        <span class="fl-text">Association Saint Martin</span>
+      </div>
+      <p>« Ensemble dans la rue, pour redonner espoir » — Depuis 2021, nous accompagnons les personnes sans abri vers la réinsertion sociale à Paris.</p>
+    </div>
+    <div class="fc"><h4>Navigation</h4><ul><li><a href="#about">Notre mission</a></li><li><a href="#actions">Nos actions</a></li><li><a href="#stories">Témoignages</a></li><li><a href="#projects">Projets</a></li></ul></div>
+    <div class="fc"><h4>Agir</h4><ul><li><a href="#don">Faire un don</a></li><li><a href="#join">Devenir bénévole</a></li><li><a href="#contact">Partenariat</a></li><li><a href="#contact">Presse</a></li></ul></div>
+    <div class="fc"><h4>Contact</h4><ul><li><a href="mailto:maggie.langlier@gmail.com">maggie.langlier@gmail.com</a></li><li><a href="https://wa.me/33613851679">+33 6 13 85 16 79</a></li><li><a href="#">Paris, France</a></li></ul></div>
+  </div>
+  <div class="fb-bot">
+    <p>© 2025 Association Saint Martin · Tous droits réservés</p>
+    <p style="color:rgba(255,255,255,.35);font-size:.75rem">100% financée par des dons privés</p>
+  </div>
+</footer>
+
+<div class="modal-ov" id="mDon"><div class="modal"><button class="modal-x" onclick="closeM('mDon')">✕</button><span class="si" id="m-ic">❤️</span><h3 id="m-title">Merci !</h3><p id="m-body"></p><button class="btn-r" style="width:100%;justify-content:center" onclick="closeM('mDon')">Fermer</button></div></div>
+<div class="modal-ov" id="mJoin"><div class="modal"><button class="modal-x" onclick="closeM('mJoin')">✕</button><span class="si">🤝</span><h3>Candidature envoyée !</h3><p>Merci de votre intérêt. Marguerite Marie Langlier vous contactera dans les plus brefs délais.</p><button class="btn-r" style="width:100%;justify-content:center" onclick="closeM('mJoin')">Parfait !</button></div></div>
+<div class="modal-ov" id="mCt"><div class="modal"><button class="modal-x" onclick="closeM('mCt')">✕</button><span class="si">✉️</span><h3>Message envoyé !</h3><p>Nous avons bien reçu votre message. Notre équipe vous répondra dans les 48 heures.</p><button class="btn-r" style="width:100%;justify-content:center" onclick="closeM('mCt')">Fermer</button></div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+document.getElementById('hb').addEventListener('click',()=>document.getElementById('nl').classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nl').classList.remove('open')));
+
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v');}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+
+function changeLogo(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    const s=ev.target.result;
+    const i=document.getElementById('logo-img'),p=document.getElementById('logo-ph');
+    i.src=s;i.style.display='block';p.style.display='none';
+    const fi=document.getElementById('ft-logo'),fp=document.getElementById('ft-ph');
+    fi.src=s;fi.style.display='block';fp.style.display='none';
+    showToast('Logo intégré avec succès !','success');
+  };r.readAsDataURL(f);
+}
+
+const PI={
+  wave:{t:'Don par Wave',s:'Rapide, sécurisé, direct',i:'📱 <strong>Wave :</strong> Envoyez au <strong>+33 6 13 85 16 79</strong> (Marguerite Marie Langlier) réf. <strong>"DON SAINT MARTIN"</strong>.'},
+  orange:{t:'Don par Orange Money',s:'Simple et instantané',i:'🟠 <strong>Orange Money :</strong> Transférez au <strong>+33 6 13 85 16 79</strong> réf. <strong>"DON SAINT MARTIN"</strong>.'},
+  card:{t:'Don par carte bancaire',s:'Visa, Mastercard, CB — 100% sécurisé',i:'💳 <strong>Carte bancaire :</strong> Virement ou PayPal à <strong>maggie.langlier@gmail.com</strong> réf. <strong>"DON SAINT MARTIN"</strong>.'},
+  western:{t:'Don par Western Union',s:'Virement international sécurisé',i:'🌍 <strong>Western Union :</strong> Nom <strong>Marguerite Marie Langlier</strong>, Paris, France. Contact : <strong>+33 6 13 85 16 79</strong>.'}
+};
+let CM='wave',CA=10;
+function selM(m){CM=m;document.querySelectorAll('.dm').forEach(x=>x.classList.remove('active'));document.getElementById('m-'+m).classList.add('active');document.getElementById('don-title').textContent=PI[m].t;document.getElementById('don-sub').textContent=PI[m].s;document.getElementById('pay-info').innerHTML=PI[m].i;}
+function selA(a,e){document.querySelectorAll('.amt').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');if(a==='custom'){document.getElementById('ca-grp').style.display='block';CA='custom';}else{document.getElementById('ca-grp').style.display='none';CA=a;document.getElementById('don-amt').textContent=a+' €';}}
+function procDon(){
+  const em=document.getElementById('d-email').value;let a=CA;
+  if(a==='custom'){a=document.getElementById('ca').value;if(!a||a<1){showToast('Montant invalide','error');return;}document.getElementById('don-amt').textContent=a+' €';}
+  if(!em){showToast('Email requis pour le reçu','error');return;}
+  const nm={wave:'Wave',orange:'Orange Money',card:'Carte bancaire',western:'Western Union'};
+  document.getElementById('m-ic').textContent='✅';
+  document.getElementById('m-title').textContent='Merci pour votre don !';
+  document.getElementById('m-body').innerHTML=`<strong>Récapitulatif :</strong><br>• Montant : <strong>${a} €</strong><br>• Méthode : <strong>${nm[CM]}</strong><br>• Email : <strong>${em}</strong><br><br>${PI[CM].i}<br><br><em style="color:var(--GR)">Un email de confirmation vous sera envoyé après réception. Merci !</em>`;
+  openM('mDon');
+}
+function sendBen(){if(!document.getElementById('v-pr').value.trim()||!document.getElementById('v-nm').value.trim()||!document.getElementById('v-em').value.trim()){showToast('Champs obligatoires manquants','error');return;}openM('mJoin');['v-pr','v-nm','v-em','v-tel','v-msg'].forEach(i=>document.getElementById(i).value='');}
+function sendCt(){if(!document.getElementById('ct-pr').value.trim()||!document.getElementById('ct-em').value.trim()||!document.getElementById('ct-msg').value.trim()){showToast('Champs obligatoires manquants','error');return;}openM('mCt');['ct-pr','ct-nm','ct-em','ct-msg'].forEach(i=>document.getElementById(i).value='');}
+function openM(id){document.getElementById(id).classList.add('active');}
+function closeM(id){document.getElementById(id).classList.remove('active');}
+document.querySelectorAll('.modal-ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');}));
+function showToast(msg,type='info'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3500);}
+window.addEventListener('scroll',()=>{let c='';document.querySelectorAll('section[id]').forEach(s=>{if(scrollY>=s.offsetTop-100)c=s.id;});document.querySelectorAll('.nav-links a').forEach(a=>a.style.color=a.getAttribute('href')==='#'+c?'var(--B)':'');});
+</script>
+</body>
+</html>
